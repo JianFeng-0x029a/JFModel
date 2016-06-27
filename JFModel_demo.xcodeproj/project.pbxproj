@@ -13,6 +13,10 @@
 		9D577DA41D0562C6001E17D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D577DA21D0562C6001E17D7 /* Main.storyboard */; };
 		9D577DA61D0562C6001E17D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D577DA51D0562C6001E17D7 /* Assets.xcassets */; };
 		9D577DA91D0562C6001E17D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D577DA71D0562C6001E17D7 /* LaunchScreen.storyboard */; };
+		9D577DB31D05633C001E17D7 /* JFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D577DB21D05633C001E17D7 /* JFModel.m */; };
+		9D577DB81D056480001E17D7 /* Row.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D577DB51D056480001E17D7 /* Row.m */; };
+		9D577DB91D056480001E17D7 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D577DB71D056480001E17D7 /* Section.m */; };
+		9D577DCB1D056A93001E17D7 /* JFModel+NSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D577DCA1D056A93001E17D7 /* JFModel+NSLog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,14 @@
 		9D577DA51D0562C6001E17D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D577DA81D0562C6001E17D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D577DAA1D0562C6001E17D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D577DB11D05633C001E17D7 /* JFModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFModel.h; sourceTree = "<group>"; };
+		9D577DB21D05633C001E17D7 /* JFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFModel.m; sourceTree = "<group>"; };
+		9D577DB41D056480001E17D7 /* Row.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Row.h; sourceTree = "<group>"; };
+		9D577DB51D056480001E17D7 /* Row.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Row.m; sourceTree = "<group>"; };
+		9D577DB61D056480001E17D7 /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Section.h; sourceTree = "<group>"; };
+		9D577DB71D056480001E17D7 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
+		9D577DC91D056A93001E17D7 /* JFModel+NSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JFModel+NSLog.h"; sourceTree = "<group>"; };
+		9D577DCA1D056A93001E17D7 /* JFModel+NSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JFModel+NSLog.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +70,15 @@
 		9D577D981D0562C6001E17D7 /* JFModel_demo */ = {
 			isa = PBXGroup;
 			children = (
+				9D577DB01D05631F001E17D7 /* JFModel */,
 				9D577D9C1D0562C6001E17D7 /* AppDelegate.h */,
 				9D577D9D1D0562C6001E17D7 /* AppDelegate.m */,
 				9D577D9F1D0562C6001E17D7 /* ViewController.h */,
 				9D577DA01D0562C6001E17D7 /* ViewController.m */,
+				9D577DB41D056480001E17D7 /* Row.h */,
+				9D577DB51D056480001E17D7 /* Row.m */,
+				9D577DB61D056480001E17D7 /* Section.h */,
+				9D577DB71D056480001E17D7 /* Section.m */,
 				9D577DA21D0562C6001E17D7 /* Main.storyboard */,
 				9D577DA51D0562C6001E17D7 /* Assets.xcassets */,
 				9D577DA71D0562C6001E17D7 /* LaunchScreen.storyboard */,
@@ -77,6 +94,17 @@
 				9D577D9A1D0562C6001E17D7 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9D577DB01D05631F001E17D7 /* JFModel */ = {
+			isa = PBXGroup;
+			children = (
+				9D577DB11D05633C001E17D7 /* JFModel.h */,
+				9D577DB21D05633C001E17D7 /* JFModel.m */,
+				9D577DC91D056A93001E17D7 /* JFModel+NSLog.h */,
+				9D577DCA1D056A93001E17D7 /* JFModel+NSLog.m */,
+			);
+			name = JFModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +177,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D577DCB1D056A93001E17D7 /* JFModel+NSLog.m in Sources */,
 				9D577DA11D0562C6001E17D7 /* ViewController.m in Sources */,
+				9D577DB81D056480001E17D7 /* Row.m in Sources */,
+				9D577DB31D05633C001E17D7 /* JFModel.m in Sources */,
 				9D577D9E1D0562C6001E17D7 /* AppDelegate.m in Sources */,
 				9D577D9B1D0562C6001E17D7 /* main.m in Sources */,
+				9D577DB91D056480001E17D7 /* Section.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +332,7 @@
 				9D577DAF1D0562C6001E17D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
