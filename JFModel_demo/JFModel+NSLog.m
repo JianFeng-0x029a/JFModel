@@ -11,7 +11,7 @@
 
 @implementation JFModel (NSLog)
 
-- (NSString *)descriptionWithLocale:(id)locale {
+- (NSString *)descriptionWithLocale:(nullable id)locale {
     
     __block int i = [objc_getAssociatedObject(self, @selector(descriptionWithLocale:)) intValue];
     

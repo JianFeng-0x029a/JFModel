@@ -9,15 +9,15 @@
 #import "JFModel.h"
 #import "Row.h"
 
-//属性名和键一样，如不一样需要特殊处理，见.m文件
-
 @interface Section : JFModel
+
+//属性名和键一样，如不一样需要特殊处理，见.m文件
 
 @property (nonatomic, assign) NSInteger section_id; //属性名和json里的键不同的特殊属性需要处理，section_id对应json里的id
 
 @property (nonatomic, copy) NSString *sectionTitle; //
 
-@property (nonatomic, strong) NSArray *rowArray; //普通数组不处理，自定义类元素的数组需要处理
+@property (nonatomic, strong) NSArray *rowArray; //自定义类元素的数组需要处理，系统类元素的数组不处理
 
 @property (nonatomic, strong) Row *row; //自定义类属性需要处理
 

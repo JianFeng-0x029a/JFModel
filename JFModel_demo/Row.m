@@ -10,6 +10,7 @@
 
 @implementation Row
 
+//重写setValue:forKey:方法，在系统类执行setValue:forKey:方法之前处理特殊属性
 - (void)setValue:(id)value forKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {
         key = @"row_id";

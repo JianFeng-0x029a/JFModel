@@ -7,10 +7,7 @@
 //
 
 #import "ViewController.h"
-
 #import "Section.h"
-
-//#import "JFModel+NSLog.h"
 
 @interface ViewController ()
 
@@ -62,30 +59,30 @@
     
     NSArray *model = [Section getObjectsWithArray:self.dataArray];
     
-    NSLog(@"model = %@", model);
+    DLog(@"model = %@", model);
     
-    Section *section = model[1];
+    Section *section = model[0];
     
-    NSLog(@"section = %@", section);
+    DLog(@"section = %@", section);
     
     Row *row = [section.rowArray lastObject];
     
-    NSLog(@"row = %@", row.rowTitle);
+    DLog(@"row = %@", row.rowTitle);
     
     Row *row1 = section.row;
     
-    NSLog(@"row1 = %@", row1);
+    DLog(@"row1 = %@", row1);
     
     Row *row2 = [row1 copy];
     
-    NSLog(@"row2 = %@", row2);
+    DLog(@"row2 = %@", row2);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:row2] forKey:@"row"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     Row *row3 = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"row"]];
     
-    NSLog(@"row3 = %@", row3);
+    DLog(@"row3 = %@", row3);
 }
 
 @end
