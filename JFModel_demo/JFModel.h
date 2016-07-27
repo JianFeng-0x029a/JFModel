@@ -14,6 +14,11 @@
 #   define DLog(...)
 #endif
 
+/** 处理交换key */
+#define swapKey(key)        setter=swap_##key:
+/** 处理元素为自定义类的数组 */
+#define arrayType(type)     setter=type_##type:
+
 #import <Foundation/Foundation.h>
 
 /**
@@ -56,5 +61,28 @@
  *  @return model
  */
 - (instancetype)getObjectWithDictionary:(NSDictionary *)data;
+
+@end
+
+@interface NSObject (isCustomClass)
+/**
+ *  是否是自定义类
+ *
+ *  @return 是否是自定义类
+ */
++ (BOOL)isCustomClass;
+
+@end
+
+@interface NSString (cut)
+/**
+ *  截取字符串
+ *
+ *  @param fromString  开始的字符串
+ *  @param toString      结束的字符串
+ *
+ *  @return 新的字符串（不包含fromString和toString）
+ */
+- (NSString *)cutFromString:(NSString *)fromString toString:(NSString *)toString;
 
 @end

@@ -42,16 +42,45 @@
     return instance;
 }
 
+#pragma mark - KVC
 - (void)setValue:(nullable id)value forUndefinedKey:(NSString *)key {
     //当setValue:forKey:调用时找不到该key就会调用此方法，预防json里有多余的key
 }
 
+- (nullable id)valueForUndefinedKey:(NSString *)key {
+    //当valueForKey:调用时找不到该key就会调用此方法，预防崩溃
+    return nil;
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key {
+    objc_property_t property = class_getProperty([self class], [key cStringUsingEncoding:NSUTF8StringEncoding]);
+    if (property) {
+        NSString *propertyAttributes = [NSString stringWithUTF8String:property_getAttributes(property)];
+        Class propertyType = NSClassFromString([propertyAttributes cutFromString:@"\"" toString:@"\""]);
+        if([propertyType isCustomClass]) {
+            if ([propertyType respondsToSelector:@selector(getObjectWithDictionary:)]) {
+                value = [propertyType getObjectWithDictionary:value];
+            }
+        }
+        if ([propertyAttributes containsString:@"Stype_"]) {
+            Class elementType = NSClassFromString([propertyAttributes cutFromString:@"Stype_" toString:@":"]);
+            if ([elementType respondsToSelector:@selector(getObjectsWithArray:)]) {
+                value = [elementType getObjectsWithArray:value];
+            }
+        }
+        if ([propertyAttributes containsString:@"Sswap_"]) {
+            key = [propertyAttributes cutFromString:@"Sswap_" toString:@":"];
+        }
+    }
+    [super setValue:value forKey:key];
+}
+
 #pragma mark - 正反序列化
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    Class cls = [self class];
-    while (cls != [NSObject class]) {
+    Class selfType = [self class];
+    while (selfType != [NSObject class]) {
         unsigned int count = 0;
-        objc_property_t *propertyList = class_copyPropertyList(cls, &count);
+        objc_property_t *propertyList = class_copyPropertyList(selfType, &count);
         for (int i = 0; i < count; i++) {
             const char *propertyName = property_getName(*(propertyList + i));
             NSString *key = [NSString stringWithUTF8String:propertyName];
@@ -61,16 +90,16 @@
             }
         }
         free(propertyList);
-        cls = class_getSuperclass(cls);
+        selfType = class_getSuperclass(selfType);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    Class cls = [self class];
-    while (cls != [NSObject class]) {
+    Class selfType = [self class];
+    while (selfType != [NSObject class]) {
         unsigned int count = 0;
-        objc_property_t *propertyList = class_copyPropertyList(cls, &count);
+        objc_property_t *propertyList = class_copyPropertyList(selfType, &count);
         for (int i = 0; i < count; i++) {
             const char *propertyName = property_getName(*(propertyList + i));
             NSString *key = [NSString stringWithUTF8String:propertyName];
@@ -80,17 +109,17 @@
             }
         }
         free(propertyList);
-        cls = class_getSuperclass(cls);
+        selfType = class_getSuperclass(selfType);
     }
 }
 
 #pragma mark - copy
 - (instancetype)copyWithZone:(NSZone *)zone {
     typeof(self) copyInstance = [[self class] new];
-    Class cls = [self class];
-    while (cls != [NSObject class]) {
+    Class selfType = [self class];
+    while (selfType != [NSObject class]) {
         unsigned int count = 0;
-        objc_property_t *propertyList = class_copyPropertyList(cls, &count);
+        objc_property_t *propertyList = class_copyPropertyList(selfType, &count);
         for (int i = 0; i < count; i++) {
             const char *propertyName = property_getName(*(propertyList + i));
             NSString *key = [NSString stringWithUTF8String:propertyName];
@@ -100,9 +129,29 @@
             }
         }
         free(propertyList);
-        cls = class_getSuperclass(cls);
+        selfType = class_getSuperclass(selfType);
     }
     return copyInstance;
+}
+
+@end
+
+@implementation NSObject (isCustomClass)
+
++ (BOOL)isCustomClass {
+    NSBundle *bundle = [NSBundle bundleForClass:self];
+    return bundle == [NSBundle mainBundle];
+}
+
+@end
+
+@implementation NSString (cut)
+
+- (NSString *)cutFromString:(NSString *)fromString toString:(NSString *)toString {
+    if ([self containsString:fromString] &&[self containsString:toString]) {
+        return  [[self componentsSeparatedByString:fromString][1] componentsSeparatedByString:toString][0];
+    }
+    return nil;
 }
 
 @end

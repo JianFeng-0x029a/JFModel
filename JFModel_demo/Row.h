@@ -10,7 +10,7 @@
 
 @interface Row : JFModel
 
-@property (nonatomic, assign) NSInteger row_id;
+@property (nonatomic, assign, swapKey(id)) NSInteger row_id;
 
 @property (nonatomic, copy) NSString *rowTitle;
 
